@@ -39,7 +39,7 @@ export default class BlogController {
     const articleData = {
       title,
       description,
-      author,
+      user: author,
       state,
       reading_time,
       tags,
@@ -57,7 +57,8 @@ export default class BlogController {
   }
   //List of Authors article
   static async myArticles(req: Request, res: Response) {
-    const { id: userID } = req.body;
+    //@ts-ignore
+    const userID = req.user!.userID;
     const article = await ArticleService.getArticleByAuthor(userID);
     if (!article) {
       throw new CustomError.BadRequestError("No article exists");
@@ -72,7 +73,7 @@ export default class BlogController {
   // // Single Article
   static async readSingleArticle(req: Request, res: Response) {
     const { id: bookID } = req.params;
-    const article = await ArticleService.getArticleByID(bookID);
+    const article = await ArticleService.getPublishArticleByID(bookID);
     if (!article) {
       throw new CustomError.NotFoundError(
         `Article with id: ${bookID} does not exist`
@@ -83,6 +84,11 @@ export default class BlogController {
       status: "success",
       data: article,
     };
+    //@ts-ignore
+    if (article.user !== req.user.userID) {
+      article.read_count += 1;
+      await article.save();
+    }
     res.status(StatusCode.OK).json(output);
   }
   // //Get all articles
@@ -122,7 +128,7 @@ export default class BlogController {
   }
   // //Edit Article
   static async editArticle(req: Request, res: Response) {
-    const { id: bookID } = req.params;
+    const { articleID: bookID } = req.params;
     const { title, description, tags, content } = req.body;
     //
     const checkTitle = await Article.findOne({

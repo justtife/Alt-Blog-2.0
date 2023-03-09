@@ -46,17 +46,6 @@ export default class ArticleSchema {
       params: Joi.object({}),
     });
   }
-  static getUserArticle(): ObjectSchema {
-    return Joi.object({
-      body: Joi.object({
-        id: Joi.number()
-          .required()
-          .error(new BadRequestError("Enter a valid user ID")),
-      }),
-      query: Joi.object({}),
-      params: Joi.object({}),
-    });
-  }
   static getSingleArticle(): ObjectSchema {
     return Joi.object({
       body: Joi.object({}),
@@ -130,7 +119,7 @@ export default class ArticleSchema {
       }),
       query: Joi.object({}),
       params: Joi.object({
-        id: Joi.number()
+        articleID: Joi.number()
           .min(6)
           .required()
           .error(new BadRequestError("Enter a valid article ID")),

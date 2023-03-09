@@ -18,13 +18,7 @@ articleRouter.route("/create").post(
   BlogController.createArticle
 );
 //User created Articles Route
-articleRouter
-  .route("/my-articles")
-  .get(
-    Auth,
-    validateResource(ArticleSchema.getUserArticle()),
-    BlogController.myArticles
-  );
+articleRouter.route("/my-articles").get(Auth, BlogController.myArticles);
 //All published articles Route
 articleRouter.route("/all").get(BlogController.allArticles);
 articleRouter
@@ -48,14 +42,14 @@ articleRouter
   );
 //Edit Article
 articleRouter
-  .route("/:id/edit")
+  .route("/edit/:articleID")
   .patch(
     Auth,
-    validateResource(ArticleSchema.editArticle()),
+    // validateResource(ArticleSchema.editArticle()),
     BlogController.editArticle
   );
 articleRouter
-  .route("/:id/lock")
+  .route("/lock/:id")
   .patch(
     [
       Auth,

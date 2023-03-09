@@ -52,4 +52,12 @@ export default class ArticleService {
     const article = await Article.findByPk(articleID);
     return article;
   }
+  static async getPublishArticleByID(
+    articleID: number | any
+  ): Promise<ArticleAttributes | any> {
+    const article = await Article.findOne({
+      where: { articleID, state: "publish" },
+    });
+    return article;
+  }
 }
