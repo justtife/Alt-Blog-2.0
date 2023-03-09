@@ -60,7 +60,6 @@ Article.init(
     tags: DataTypes.TEXT,
     coverImage: {
       type: DataTypes.STRING,
-      allowNull: false,
     },
     content: DataTypes.TEXT,
     locked: {
