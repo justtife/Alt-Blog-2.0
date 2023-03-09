@@ -1,0 +1,17 @@
+export default {
+  port: process.env.PORT || 4321,
+  SLACK_WEBHOOK_URL: process.env.SLACK_WEBHOOK_URL,
+  DB_HOST: process.env.DB_HOST,
+  DB_PASSWORD: process.env.DB_PASSWORD,
+  DB_USERNAME: process.env.DB_USERNAME,
+  DB_NAME: process.env.DB_NAME,
+  DB_PORT: process.env.DB_PORT as unknown,
+  CLOUD_NAME: process.env.CLOUD_NAME,
+  API_KEY: process.env.API_KEY,
+  API_SECRET: process.env.API_SECRET,
+  SESSION_SECRET: process.env.SESSION_SECRET,
+  MAIL_SERVICE: process.env.MAIL_SERVICE,
+  MAIL_USER: process.env.MAIL_USER,
+  NODEMAILER_PASS: process.env.NODEMAILER_PASS,
+  JWT_SECRET: process.env.JWT_SECRET,
+};
