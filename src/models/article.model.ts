@@ -4,7 +4,7 @@ import {
   ArticleAttributes,
   ArticleCreationAttributes,
 } from "../utils/types/article.type";
-
+import Comment from "./comment.model";
 class Article
   extends Model<ArticleAttributes, ArticleCreationAttributes>
   implements ArticleAttributes
@@ -72,7 +72,8 @@ Article.init(
     tableName: "articles",
   }
 );
-
+Article.hasMany(Comment, { foreignKey: "articleID" });
+Comment.belongsTo(Article, { foreignKey: "articleID" });
 Article.sync({ force: false });
 
 export default Article;

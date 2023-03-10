@@ -185,7 +185,7 @@ export default class BlogController {
     const { id: bookID } = req.params;
     let article = await ArticleService.getArticleByID(bookID);
     checkPermission(req.user as any, article.user);
-    await article.remove();
+    await article.destroy();
     //   //Send mail to user
     res.status(StatusCode.NO_CONTENT).json();
   }

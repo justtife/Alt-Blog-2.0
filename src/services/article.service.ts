@@ -1,13 +1,9 @@
 import Article from "../models/article.model";
-import CustomError from "../utils/errors/custom";
 import logger from "../utils/logger/logger";
 import { ArticleAttributes } from "../utils/types/article.type";
-import { Op } from "sequelize";
+import Comment from "../models/comment.model";
 
-interface SearchTerm {
-  state?: "draft" | "publish";
-  id?: number;
-}
+
 export default class ArticleService {
   /**
    * Create a new user
@@ -33,6 +29,10 @@ export default class ArticleService {
     const articles = await Article.findAll({
       where: { state: "publish" },
       order: [["createdAt", "DESC"]],
+      include: {
+        model: Comment,
+        attributes: ["content", "user"],
+      },
     });
     return articles;
   }
@@ -57,6 +57,10 @@ export default class ArticleService {
   ): Promise<ArticleAttributes | any> {
     const article = await Article.findOne({
       where: { articleID, state: "publish" },
+      include: {
+        model: Comment,
+        attributes: ["content", "user"],
+      },
     });
     return article;
   }
