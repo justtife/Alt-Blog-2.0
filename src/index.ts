@@ -118,6 +118,8 @@ import authRouter from "./routes/user.route";
 app.use("/api/v1", authRouter);
 import articleRouter from "./routes/article.route";
 app.use("/api/v1/article", articleRouter);
+import commentRouter from "./routes/comment.route";
+app.use("/api/v1/comment", commentRouter);
 
 //Swagger Documentation
 import swaggerDocs from "./utils/documentation/swagger";
